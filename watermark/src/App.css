@@ -1,0 +1,272 @@
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg-color: #f8fafc;
+  --bg-gradient: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --input-bg: #ffffff;
+  --success-color: #10b981;
+  --success-hover: #059669;
+  --info-box-bg: #1e293b;
+  --info-box-text: #cbd5e1;
+  --info-box-heading: #ffffff;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode Variables */
+  --bg-color: #0f172a;
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --card-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --input-bg: #0f172a;
+  --info-box-bg: #0f172a;
+  --info-box-text: #94a3b8;
+  --info-box-heading: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header-wrapper {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem; 
+  width: 100%;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.theme-toggle {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+  text-align: left;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Custom File Upload Area with Drag States */
+.upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: 0.75rem;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(79, 70, 229, 0.02);
+}
+
+/* Applied when a file is hovering over the zone */
+.upload-area.dragging {
+  border-color: var(--primary-color);
+  background-color: rgba(79, 70, 229, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-area.has-image {
+  border-color: var(--primary-color);
+  padding: 0;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  pointer-events: none; /* Prevents icon from interfering with drag events */
+}
+
+.hidden-input {
+  display: none;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.upload-area:hover .preview-overlay {
+  opacity: 1;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn:hover:not(:disabled) { background-color: var(--primary-hover); }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.btn-success { background-color: var(--success-color); margin-top: 1.5rem; }
+.btn-success:hover { background-color: var(--success-hover); }
+
+.info-box {
+  background-color: var(--info-box-bg);
+  color: var(--info-box-text);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.info-box h3 { color: var(--info-box-heading); margin-bottom: 0.75rem; font-size: 1.1rem; }
+.info-box ul { padding-left: 1.25rem; }
+.info-box li { margin-bottom: 0.5rem; }
+
+.result-card { text-align: center; }
+.result-icon { width: 64px; height: 64px; color: var(--success-color); margin-bottom: 1rem; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
